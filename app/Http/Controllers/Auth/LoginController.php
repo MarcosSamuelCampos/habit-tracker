@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,12 +18,9 @@ class LoginController extends Controller
     }
 
     // POST /login
-    public function authenticate(Request $request){
+    public function authenticate(LoginRequest $request){
        
-    $credenciais = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
+    $credenciais = $request->only('email','password');
     
 
     if(Auth::attempt($credenciais)){
@@ -31,7 +29,7 @@ class LoginController extends Controller
         return redirect()->intended(route('site.dashboard'));
     }
         return back()->withErrors([
-            'email' => 'senha ou email errads',
+            'email' => 'senha ou email errado',
         ]);
     }
     public function logout(Request $request): RedirectResponse
