@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password'])]
-class User extends Authenticatable
+class  User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
